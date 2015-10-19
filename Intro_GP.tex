@@ -24,7 +24,7 @@
 \useinnertheme{circles} % circles, rectanges, rounded, inmargin
 \usefonttheme[onlymath]{serif} % Makes math fonts like the usual LaTeX ones
 %\useoutertheme{tree} % infolines, smoothbars, sidebar, split, tree
-\setbeamercovered{transparent=5} % Transparent 10% overlays
+\setbeamercovered{transparent=4} % Transparent 10% overlays
 \setbeamertemplate{caption}{\raggedright\insertcaption\par} % Remove the word "Figure" from caption %\setbeamertemplate{caption}[default]
 \setbeamertemplate{navigation symbols}{} % don't put navigation tools at the bottom (alternatively \beamertemplatenavigationsymbolsempty)
 \graphicspath{ {./Figures/} }
@@ -53,12 +53,12 @@
 %----------------------------------------------------------------------------------------------------------------------%
 \begin{frame}{Overview}
 \begin{itemize}\addtolength{\itemsep}{0.5\baselineskip}
-	\item<2-> Motivation	
- 	\item<3-> The Gaussian Distribution
-	\item<4-> Gaussian Processes
-	\item<5-> Gaussian Process Regression - A Toy Example
-	\item<6-> Gaussian Process Regression - CO$_2$ Concentrations 
-	\item<7-> Modelling Gene Expression Time-Series
+	\item<1-> Motivation	
+ 	\item<2-> The Gaussian Distribution
+	\item<3-> Gaussian Processes
+	\item<4-> Gaussian Process Regression - A Toy Example
+	\item<5-> Gaussian Process Regression - CO$_2$ Concentrations 
+	\item<6-> Modelling Gene Expression Time-Series
 \end{itemize}
 \end{frame}
 
@@ -117,7 +117,7 @@ A draw from this distribution is a 2D vector\\
 e.g $\mathbf{x}=\begin{bmatrix} 0.3 \\ -0.4 \end{bmatrix}$
 \end{textblock}
 
-\begin{center}
+\begin{center} % If I delete this I'd have to reposition "textblock" so leave it as it until next time
 \end{center}
 \end{frame}
 
@@ -247,7 +247,7 @@ What does a \textit{single} sample from a 100 dimensional Gaussian look like?
 	$f(x) =
 	\left[
 	\begin{array}{c}
-	f(x_1) \\ \vdots \\ \vdots \\ \vdots \\ \vdots \\ \vdots \\ \vdots \\ f(x_\infty)
+	f_1 \\ \vdots \\ \vdots \\ \vdots \\ \vdots \\ \vdots \\ \vdots \\ f_\infty
 	\end{array}
 	\right]
 	\left.
@@ -290,11 +290,11 @@ Covariance matrix
 \\[0.4cm]
 $\Sigma = 
 \begin{pmatrix}
-  	\sigma^2_1 & & \sigma_1\sigma_2 & & \sigma_1\sigma_3\\
+  	\sigma^2_1 & & \sigma_{12} & & \sigma_{13}\\
   	& & & & \\	
-  	\sigma_2\sigma_1 & & \sigma^2_2 & & \sigma_2\sigma_3 \\
+  	\sigma_{21} & & \sigma^2_2 & & \sigma_{23} \\
 	& & & & \\
-	\sigma_3\sigma_1 & & \sigma_3\sigma_2 & & \sigma^2_3 \\
+	\sigma_{31} & & \sigma_{32} & & \sigma^2_3 \\
 \end{pmatrix}
 $
 \end{block}
@@ -317,8 +317,8 @@ Covariance \textit{function}
 \\[0.2cm]
 $\Sigma = 
 \begin{pmatrix}
-  	\sigma^2_1 		& \sigma_1\sigma_2  & \hdots & \sigma_1\sigma_\infty\\
-  	\sigma_2\sigma_1& \sigma^2_2 		& \hdots & \vdots \\
+  	\sigma^2_1 		& \sigma_{12}  		& \hdots & \sigma_{1\infty}\\
+  	\sigma_{21}		& \sigma^2_2 		& \hdots & \vdots \\
 	\vdots 			& \vdots 			& \ddots & \vdots \\
 	\vdots 			& \vdots 			& \hdots & \sigma^2_\infty
 \end{pmatrix}
@@ -352,8 +352,8 @@ Essentially an infinite dimension multivariate Gaussian distribution, characteri
 
 \begin{block}{Rationale}
 Instead of inferring the parameters of a fixed model structure ($\beta_0,\beta_1,\ldots$), with GPs we model the \textit{correlation}
-between inputs. That is, inputs ($\mathbf{x}$) that are close/similar to each other are likely to give rise to a similar
-output ($f(\mathbf{x})$)  
+between inputs. That is, inputs $\mathbf{x}$ that are close/similar to each other are likely to give rise to a similar
+output $f(\mathbf{x})$  
 \end{block}
 \vspace{-1cm}
 \begin{align}
@@ -370,7 +370,7 @@ k(\mathbf{x},\mathbf{x}')\ \ =\ \ &\mathrm{E}[(f(\mathbf{x})-m(\mathbf{x})(f(\ma
 \begin{itemize}\addtolength{\itemsep}{0.2\baselineskip}
 	\item<1-> Vital ingredient in Gaussian Process\footnote{without much loss of generality we can assume that $m(\mathbf{x}) \equiv 0$} 
 	\item<2-> Encodes our assumptions about the function we wish to model (smooth, stationary, etc.)
-	\item<3-> Quantifies the \textit{similarity} between two data points; crucial for predicting a test point $\mathbf{x*}$
+	\item<3-> Quantifies the \textit{similarity} between two data points; crucial for predicting a test point $\mathbf{x^*}$
 	\item<4-> Needs to satisfy a set of mathematical conditions {\tiny (beyond the scope of this intro)}
 	\item<5-> A very popular choice is the Squared Exponential:\\ 
 	{\tiny (also known as RBF, Gaussian and Exponentiated Quadratic Kernel Function)} 
@@ -386,7 +386,7 @@ k(\mathbf{x},\mathbf{x}')\ \ =\ \ &\mathrm{E}[(f(\mathbf{x})-m(\mathbf{x})(f(\ma
 %----------------------------------------------------------------------------------------------------------------------%
 \begin{frame}{Gaussian Process Regression}
 \begin{itemize}\addtolength{\itemsep}{1\baselineskip}
-	\item<1-> Shift the problem of inferring model parameters to choosing covariance function and its (hyper)parameters
+	\item<1-> Shift the problem from inferring model parameters to choosing a covariance function and its (hyper)parameters
 	\item<2-> Choose $m(\mathbf{x})$ and $k(\mathbf{x},\mathbf{x}')$ that reflect some prior belief
 	\item<3-> This defines a \textit{prior} on the function class itself; it is a prior on a \textit{function} and not 
 	parameters of some fixed model structure
@@ -419,10 +419,9 @@ k(\mathbf{x},\mathbf{x}')\ \ =\ \ &\mathrm{E}[(f(\mathbf{x})-m(\mathbf{x})(f(\ma
 	k(\mathbf{x},\mathbf{x}') = \alpha \exp \left( {\frac{\Vert \mathbf{x} - \mathbf{x'} \Vert^2}{2l^2}} \right)
 	$$
 	\item<2-> Choosing a covariance functions is akin to choosing a model structure; it dictates the class of functions
-	that can be represented by the Gaussian Process\footnote{this class of functions however is typically wider than
-	that offered by a parametric model}
+	that can be represented by the Gaussian Process\footnote{typically a wider class of functions than in parametric models}
  	\item<3-> Misspecifying the covariance function and/or its (hyper)parameters has a detrimental effect on the model fit
- 	\item<4-> For the squared exponential case the lengthscale $l$ dictates how much the function is allowed to bend 
+ 	\item<4-> For e.g in the squared exponential case the lengthscale $l$ dictates how much the function is allowed to bend 
 \end{itemize}
 \end{frame}
 
@@ -430,14 +429,14 @@ k(\mathbf{x},\mathbf{x}')\ \ =\ \ &\mathrm{E}[(f(\mathbf{x})-m(\mathbf{x})(f(\ma
 %----------------------------------------------------------------------------------------------------------------------%
 \begin{frame}{The Effect of Lengthscale on Model Fit}
 \begin{center}
-	\includegraphics<1>[width=0.85\textwidth]{GPLengthscale0.pdf}
-	\includegraphics<2>[width=0.85\textwidth]{GPLengthscale1.pdf}
-	\includegraphics<3>[width=0.85\textwidth]{GPLengthscale2.pdf}
-	\includegraphics<4>[width=0.85\textwidth]{GPLengthscale3.pdf}
-	\includegraphics<5>[width=0.85\textwidth]{GPLengthscale4.pdf}
-	\includegraphics<6>[width=0.85\textwidth]{GPLengthscale5.pdf}
-	\includegraphics<7>[width=0.85\textwidth]{GPLengthscale6.pdf}
-	\includegraphics<8>[width=0.85\textwidth]{GPLengthscale7.pdf}
+	\includegraphics<1>[width=0.83\textwidth]{GPLengthscale0.pdf}
+	\includegraphics<2>[width=0.83\textwidth]{GPLengthscale1.pdf}
+	\includegraphics<3>[width=0.83\textwidth]{GPLengthscale2.pdf}
+	\includegraphics<4>[width=0.83\textwidth]{GPLengthscale3.pdf}
+	\includegraphics<5>[width=0.83\textwidth]{GPLengthscale4.pdf}
+	\includegraphics<6>[width=0.83\textwidth]{GPLengthscale5.pdf}
+	\includegraphics<7>[width=0.83\textwidth]{GPLengthscale6.pdf}
+	\includegraphics<8>[width=0.83\textwidth]{GPLengthscale7.pdf}
 	%\includegraphics<9>[width=0.85\textwidth]{GPLengthscale8.pdf}
 \end{center}
 \end{frame}
@@ -453,7 +452,7 @@ k(\mathbf{x},\mathbf{x}')\ \ =\ \ &\mathrm{E}[(f(\mathbf{x})-m(\mathbf{x})(f(\ma
 $$
 \ln p(y|\mathbf{x},\mathbf{\theta})=-\frac{1}{2}y^T(k(\mathbf{x},\mathbf{x}')+\sigma^2_nI)^{-1}y-\frac{1}{2}\ln|k(\mathbf{x},\mathbf{x}')+\sigma^2_nI|-\frac{n}{2}\ln2\pi
 $$
-	\item<3-> Cannot guarantee a global optimum, try different initial conditions
+	\item<3-> Cannot guarantee a global optimum; try different initial conditions
 	\item<4-> Constraint (hyper)parameters to some sensible limits
 	\item<5-> \textbf{Note}: Choosing the right covariance function (e.g Squared Exponential, Mat\'{e}rn, Rational Quadratic, etc.) is not always easy and
 	should be treated akin to a model selection problem
@@ -491,7 +490,7 @@ $$
 %----------------------------------------------------------------------------------------------------------------------%
 \begin{frame}{Clustering Gene Expression Time-Series}
 \begin{center}
-	\includegraphics[width=0.85\textwidth]{ProbeClustering.pdf}
+	\includegraphics[width=0.9\textwidth]{ProbeClustering.pdf}
 \end{center}
 \end{frame}
 

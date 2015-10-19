@@ -16,8 +16,8 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages # to save as pdf
 import GPy
 # Constants
-FILE_LOC = "/Users/jjv207/Machine_Learning/Intro_GP/Data/CO2Data.csv"
-RESULTS_LOC = "/Users/jjv207/Machine_Learning/Intro_GP/Figures/"
+FILE_LOC = "/Users/jjv207/MachineLearning/Intro_GP/Data/CO2Data.csv"
+RESULTS_LOC = "/Users/jjv207/MachineLearning/Intro_GP/Figures/"
 XLIM = (1957, 2025)
 YLIM = (310, 425)
 
@@ -109,8 +109,9 @@ hFig = plt.figure("GPFit", figsize=(16,6))
 plt.plot(xTrain, yTrain, '.', ms=2)
 plt.xlim(min(xTest), max(xTest))
 plt.ylim(300, 440)
-plt.xlabel("Year")
-plt.ylabel("CO$_2$ concentration (ppm)")
+plt.xlabel("Year", fontsize=20)
+plt.ylabel("CO$_2$ concentration (ppm)", fontsize=20)
+plt.tick_params(axis='both', labelsize=16)
 # Plot bounds
 hAx = plt.gca()
 GPy.plotting.matplot_dep.base_plots.gpplot(x=xTest, mu=mu, lower=mu-2.*np.sqrt(var), upper=mu+2.*np.sqrt(var), 

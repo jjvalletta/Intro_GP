@@ -16,7 +16,7 @@ from matplotlib import cm # colourmaps
 import GPy # to get Gaussian Prior
 from brewer2mpl import qualitative # colour brewer colours
 # Constants
-RESULTS_LOC = "/Users/jjv207/Machine_Learning/Intro_GP/Figures/"
+RESULTS_LOC = "/Users/jjv207/MachineLearning/Intro_GP/Figures/"
 COLOUR = qualitative.Set1[4].hex_colors
 YLIM = (-2.5, 2.5)
 SHADE_COLOUR = "black" # "darkgrey"

@@ -16,7 +16,7 @@ from matplotlib import cm # colourmaps
 from scipy.stats import multivariate_normal
 import GPy # to get Gaussian Prior
 # Constants
-RESULTS_LOC = "/Users/jjv207/Machine_Learning/Intro_GP/Figures/"
+RESULTS_LOC = "/Users/jjv207/MachineLearning/Intro_GP/Figures/"
 
 #----------------------------------------------------------------------------------------------------------------------#
 # Generate 1D Gaussian
@@ -82,6 +82,7 @@ plt.xlim(-2.1, 2.1)
 plt.xlabel("$x_1$", fontsize=24)
 plt.ylabel("$x_2$", fontsize=24)
 plt.tick_params(axis='both', labelsize=16)
+plt.axis('equal')
 #hFig.colorbar(surf, shrink=0.5, aspect=5)
 # Save figure
 fileName = "Gaussian2DContour1.pdf"
@@ -108,6 +109,7 @@ plt.xlim(-2.1, 2.1)
 plt.xlabel("$x_1$", fontsize=24)
 plt.ylabel("$x_2$", fontsize=24)
 plt.tick_params(axis='both', labelsize=16)
+plt.axis('equal')
 #hFig.colorbar(surf, shrink=0.5, aspect=5)
 # Save figure
 fileName = "Gaussian2DContour2.pdf"
@@ -134,6 +136,7 @@ plt.xlim(-2.1, 2.1)
 plt.xlabel("$x_1$", fontsize=24)
 plt.ylabel("$x_2$", fontsize=24)
 plt.tick_params(axis='both', labelsize=16)
+plt.axis('equal')
 #hFig.colorbar(surf, shrink=0.5, aspect=5)
 # Save figure
 fileName = "Gaussian2DContour3.pdf"
@@ -160,6 +163,7 @@ plt.xlim(-2.1, 2.1)
 plt.xlabel("$x_1$", fontsize=24)
 plt.ylabel("$x_2$", fontsize=24)
 plt.tick_params(axis='both', labelsize=16)
+plt.axis('equal')
 #hFig.colorbar(surf, shrink=0.5, aspect=5)
 # Save figure
 fileName = "Gaussian2DContour4.pdf"
@@ -210,7 +214,7 @@ Z = np.random.multivariate_normal(mean, covMatrix, 1) # just take 1 sample, but 
 hFig = plt.figure("100D Gaussian")
 plt.plot(Z.T, "k", ms=8) # marker size
 plt.xlabel("index ($i$)", fontsize=20)
-plt.ylabel("$f(x_i)$", fontsize=20)
+plt.ylabel("$f_i$", fontsize=20)
 plt.tick_params(axis='both', labelsize=16)
 plt.ylim(-2.6, 2.6)
 # Save figure
