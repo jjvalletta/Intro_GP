@@ -375,7 +375,7 @@ k(\mathbf{x},\mathbf{x}')\ \ =\ \ &\mathrm{E}[(f(\mathbf{x})-m(\mathbf{x})(f(\ma
 	\item<5-> A very popular choice is the Squared Exponential:\\ 
 	{\tiny (also known as RBF, Gaussian and Exponentiated Quadratic Kernel Function)} 
 	$$
-	k(\mathbf{x},\mathbf{x}') = \alpha \exp \left( {\frac{\Vert \mathbf{x} - \mathbf{x'} \Vert^2}{2l^2}} \right)
+	k(\mathbf{x},\mathbf{x}') = \alpha \exp \left( - {\frac{\Vert \mathbf{x} - \mathbf{x'} \Vert^2}{2l^2}} \right)
 	$$
 	e.g if we set $\alpha=1$ and $l=1$ then:\\
  	{\footnotesize $k(0, 0) = e^0 = 1$,\ \ \ \ \ $k(0, 1) = e^{-\frac{1}{2}} = 0.6$,\ \ \ \ \ $k(0, 2) = e^{-2} = 0.14$}
@@ -416,7 +416,7 @@ k(\mathbf{x},\mathbf{x}')\ \ =\ \ &\mathrm{E}[(f(\mathbf{x})-m(\mathbf{x})(f(\ma
 \begin{itemize}\addtolength{\itemsep}{0.5\baselineskip}
 	\item<1-> The Squared Exponential covariance function was used in the previous example:
 	$$
-	k(\mathbf{x},\mathbf{x}') = \alpha \exp \left( {\frac{\Vert \mathbf{x} - \mathbf{x'} \Vert^2}{2l^2}} \right)
+	k(\mathbf{x},\mathbf{x}') = \alpha \exp \left( - {\frac{\Vert \mathbf{x} - \mathbf{x'} \Vert^2}{2l^2}} \right)
 	$$
 	\item<2-> Choosing a covariance functions is akin to choosing a model structure; it dictates the class of functions
 	that can be represented by the Gaussian Process\footnote{typically a wider class of functions than in parametric models}
